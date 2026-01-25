@@ -28,3 +28,4 @@
 *.xlsm binary
 *.obj binary
 *.bin binary
+RACFADM.LOADLIB/* git-encoding=BINARY binary
