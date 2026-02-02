@@ -3,6 +3,7 @@
 /*--------------------------------------------------------------------*/
 /* FLG  YYMMDD  USERID   DESCRIPTION                                  */
 /* ---  ------  -------  -------------------------------------------- */
+/* @BK  260201  TRIDJK   Add primary command ADD                      */
 /* @L2  251216  LBDyck   Report invalid commands on table panels      */
 /* @BJ  250513  TRIDJK   Add primary command ALL                      */
 /* @BI  241022  TRIDJK   Add primary command CDT                      */
@@ -275,6 +276,10 @@ DISPLAY_TABLE:
         When (abbrev("ALL",zcmd,3) = 1) then DO               /* @JK */
              call ALL_Classes                                 /* @JK */
         END                                                   /* @JK */
+        When (abbrev("ADD",zcmd,3) = 1) then DO               /* @BK */
+             class = parm                                     /* @BK */
+             call Add_Class                                   /* @BK */
+        END                                                   /* @BK */
         When (abbrev("SETROPTS",zcmd,4) = 1) then DO          /* @BF */
              if parm = '' then                                /* @BF */
                parm = 'NONE'                                  /* @BF */
@@ -402,11 +407,17 @@ if (SETMIRRX = 'YES') then do                                 /* @BE */
     return                                                    /* @BE */
     end                                                       /* @BE */
   end                                                         /* @BE */
-  msg    = 'You are about to refresh class',                  /* @BE */
-            class 'in RACLIST'                                /* @BE */
+  if class = 'PROGRAM' & when_pgm = 'TRUE' then               /* @JK */
+    msg    = 'You are about to refresh When(Program)'         /* @JK */
+  else                                                        /* @JK */
+    msg    = 'You are about to refresh class',                /* @BE */
+              class 'in RACLIST'                              /* @BE */
   Sure_? = RACFMSGC(msg)
   if (sure_? = 'YES') then do
-     call EXCMD "SETR RACLIST("class") REFRESH"
+     if class = 'PROGRAM' & when_pgm = 'TRUE' then            /* @JK */
+       call EXCMD "SETR WHEN(PROGRAM) REFRESH"
+     else
+       call EXCMD "SETR RACLIST("class") REFRESH"
      if (cmd_rc <> 0) then                                    /* @AO */
        if (subword(msg.1,1,3)) = 'IKJ56702I INVALID RACLIST,' |,
           (subword(msg.1,1,2)) = 'INVALID RACLIST,' then      /* @BE */
@@ -428,6 +439,9 @@ if (word(myrc,1)<>0) then do                                  /* @BE */
    say "MYRC="myrc                                            /* @BE */
    say "An IRRXUTIL or R_admin error occurred"                /* @BE */
 end                                                           /* @BE */
+when_pgm = cls.base.whenprog.1                                /* @JK */
+if class = 'PROGRAM' & when_pgm = 'TRUE' then                 /* @JK */
+  return 'YES'                                                /* @JK */
 rac_listed = ''                                               /* @BE */
 do t = 1 to CLS.BASE.RACLIST.0                                /* @BE */
   rac_listed = rac_listed cls.base.raclist.t                  /* @BE */
@@ -649,6 +663,16 @@ ALL_Classes:
       end
     end
 RETURN
+/*--------------------------------------------------------------------*/
+/*  Add a resource class                                         @JK  */
+/*--------------------------------------------------------------------*/
+Add_Class:                                                    /* @JK */
+  Call Class_desc                                             /* @JK */
+  if length(c.class) > 10 then do                             /* @JK */
+    cdesc = c.class                                           /* @JK */
+    "TBMOD" TABLEA "ORDER"                                    /* @JK */
+    end                                                       /* @JK */
+RETURN                                                        /* @JK */
 /*--------------------------------------------------------------------*/
 /*  General resource profile descriptions                        @BH  */
 /*--------------------------------------------------------------------*/

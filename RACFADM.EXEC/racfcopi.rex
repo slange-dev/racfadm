@@ -3,6 +3,7 @@
 /*--------------------------------------------------------------------*/
 /* FLG  YYMMDD  USERID   DESCRIPTION                                  */
 /* ---  ------  -------  -------------------------------------------- */
+/* @A1  260121  TRIDJK   Generate PERMITs after ADDUSERs              */
 /* @A0  251129  TRIDJK   Creation                                     */
 /*====================================================================*/
 DDNAME      = 'RACFA'RANDOM(0,999) /* Unique ddname        */
@@ -31,6 +32,7 @@ cmd. = ""
 y = 0
 ucat = settctlg
 
+user_perm = users
 user_cnt = words(users)
 
 Do n = 1 to user_cnt
@@ -155,10 +157,9 @@ do i=1 to RACF.0 /* get the segment names */
     cmd.y = "     CATALOG DIR(250) REUSE"
     end
 
-    if radmclon = 'KLONE' then
-      call Datasets       /* Generate PERMITs */
 End
 
+call Datasets       /* Generate PERMITs */                    /* @A1 */
 cmd.0 = y
 call Display_Commands
 
@@ -229,21 +230,21 @@ if (word(myrc,1)<>0) then do
    end
 if racf.base.aclcnt.repeatcount <> '' then do
   do a=1 to racf.base.aclcnt.repeatcount
-    if user = racf.base.aclid.a then do
+    if wordpos(racf.base.aclid.a,user_perm) > 0 then do       /* @A1 */
       y = y + 1
-      cmd.y = " PERMIT '"profile"' ID("user")",
+      cmd.y = " PERMIT '"profile"' ID("racf.base.aclid.a")",  /* @A1 */
           "ACC("racf.base.aclacs.a")" type
       end
     end
   end
 if racf.base.acl2cnt.repeatcount <> '' then do
   do a=1 to racf.base.acl2cnt.repeatcount
-    if user = racf.base.acl2id.a then do
+    if wordpos(racf.base.acl2id.a,user_perm) > 0 then do      /* @A1 */
       y = y + 1
-      cmd.y = " PERMIT '"profile"' ID("user")",
-          "ACC("racf.base.acl2acs.a")",
-          "WHEN("racf.base.acl2cond.a"("racf.base.acl2ent.a"))",
-           type
+      cmd.y = " PERMIT '"profile"' ID("racf.base.acl2id.a")", /* @A1 */
+          "ACC("racf.base.acl2acs.a")" type "-"
+      y = y + 1
+      cmd.y = "  WHEN("racf.base.acl2cond.a"("racf.base.acl2ent.a"))"
       end
     end
     drop racf.

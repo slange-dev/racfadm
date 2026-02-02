@@ -270,7 +270,10 @@ DISPLAY_TABLE:
         END                                                   /* @A9 */
         WHEN (ABBREV("CHECK",ZCMD,5) = 1) THEN DO             /* @AC */
          CALL CHECKC                                          /* @AC */
-        END                                                   /* @AC */
+        END                                                   /* @A9 */
+        WHEN (ABBREV("RINGS",ZCMD,5) = 1) THEN DO             /* @JK */
+         CALL RACRINGS                                        /* @JK */
+        END                                                   /* @JK */
         Otherwise Do                                          /* @L2 */
           racfsmsg = 'Error.'                                 /* @L2 */
           racflmsg = zcmd 'is not a recognized command.' ,    /* @L2 */
@@ -774,8 +777,10 @@ RETURN                                                        /* @A6 */
 LISTM:
    if opta = "M" then
      action = "listmap"
-   if opta = "R" then
-     action = "listring(*)"
+   if (opta = "R" & certtype = 'PERSONAL') then do
+        call RACFRING cond
+        return
+        end
 
    if certtype = "PERSONAL" then
      cmd = "racdcert "action" id("cond")"

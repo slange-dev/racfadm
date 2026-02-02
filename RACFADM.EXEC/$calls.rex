@@ -1,5 +1,6 @@
 ** FIND     RACFCERT
              call RACFVUE  parm seq
+             call RACFRING cond
 
 ** FIND     RACFCLSG
              call RACFCOPC rclass clss_taba

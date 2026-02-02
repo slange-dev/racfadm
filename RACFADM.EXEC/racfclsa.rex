@@ -22,7 +22,7 @@
 /* @A9  200224  RACFA    Standardize quotes, chg single to double     */
 /* @A8  200124  RACFA    Place panels at top of REXX in variables     */
 /* @A7  200223  RACFA    Del 'address TSO "PROFILE MSGID"', not needed*/
-/* @A6  200221  RACFA    Make 'ADDRESS ISPEXEC' defualt, reduce code  */
+/* @A6  200221  RACFA    Make 'ADDRESS ISPEXEC' default, reduce code  */
 /* @A5  200220  RACFA    Fixed displaying all RACF commands           */
 /* @A4  200220  RACFA    Added SETMTRAC=YES, then TRACE R             */
 /* @A3  200218  RACFA    Condense VGETs into one line                 */

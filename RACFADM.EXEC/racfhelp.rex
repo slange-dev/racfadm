@@ -4,9 +4,9 @@
 /* FLG  YYMMDD  USERID   DESCRIPTION                                  */
 /* ---  ------  -------  -------------------------------------------- */
 /* @A9  250924  TRIDJK   Add $CALLS   - RACF callable services        */
-/* @A8  250814  TRIDJK   Add $ATTLS   - AT-TLS implentation           */
+/* @A8  250814  TRIDJK   Add $ATTLS   - AT-TLS implementation         */
 /* @A7  250327  TRIDJK   X line cmd - Exclude a command from the list */
-/* @A6  250325  TRIDJK   Add $UTILS   - RACF Utilites                 */
+/* @A6  250325  TRIDJK   Add $UTILS   - RACF Utilities                */
 /* @A5  241120  TRIDJK   Add $GLOSSRY - RACF Tech terms and abbrevs   */
 /* @L1  231018  LBD      Move set defaults higher in the code         */
 /* @A4  231006  DT       Check/allocate dd:syshelp                    */

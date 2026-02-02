@@ -44,7 +44,7 @@
 /* @AC  200316  RACFA    Break up DATA field into multi-line msg      */
 /* @AB  200316  RACFA    Added a space after semi-colon               */
 /* @AA  200316  RACFA    Added SETMTRAC=YES, then TRACE R             */
-/* @A9  200316  RACFA    Display RACF cmd (IRXXUTIL) after execution  */
+/* @A9  200316  RACFA    Display RACF cmd (IRRXUTIL) after execution  */
 /* @A8  200315  RACFA    If RC>0, then chg class variable (USER/GROUP)*/
 /* @A7  200315  RACFA    Del/add space in front of data               */
 /* @A6  200315  RACFA    Chged comments above                         */
@@ -278,7 +278,7 @@ Address ISPExec
   Address TSO 'free f('ddname')'
 RETURN
 /*--------------------------------------------------------------------*/
-/*  Execute IRRUXTIL command                                     @A9  */
+/*  Execute IRRXUTIL command                                     @A9  */
 /*--------------------------------------------------------------------*/
 EXCCMD:                                                       /* @A9 */
   class   = STRIP(class)                                      /* @AQ */

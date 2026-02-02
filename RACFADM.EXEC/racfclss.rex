@@ -22,7 +22,7 @@
 /* @BC  200424  RACFA    Fix msg RACF013, was RACF012                 */
 /* @BB  200424  RACFA    Move DDNAME at top, standardize/del dups     */
 /* @BA  200423  RACFA    Move PARSE REXXPGM name up above IF SETMTRAC */
-/* @B9  200423  RACFA    Deleted the paranthesis, syntax error        */
+/* @B9  200423  RACFA    Deleted the parenthesis, syntax error        */
 /* @B8  200423  RACFA    'Status Interval' by percentage (SETGSTAP)   */
 /* @B7  200422  RACFA    Ensure the REXX program name is 8 chars      */
 /* @B6  200422  RACFA    Use variable REXXPGM in log msg              */

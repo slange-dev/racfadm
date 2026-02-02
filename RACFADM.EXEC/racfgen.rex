@@ -4,7 +4,7 @@
 /* FLG  YYMMDD  USERID   DESCRIPTION                                  */
 /* ---  ------  -------  -------------------------------------------- */
 /* @A1  250717  Janko    If CLASS = ALL then call RACFGENA            */
-/* @A0  250503  Janko    IRRXUTIL verson                              */
+/* @A0  250503  Janko    IRRXUTIL version                             */
 /*====================================================================*/
 PANEL01     = "RACFGEN1"   /* Set filter, menu option G    */
 PANELD1     = "RACFDISP"   /* Display report with colors   */
@@ -80,7 +80,7 @@ cmd.y = "//SYSTSPRT DD  SYSOUT=*"
 y = y + 1
 cmd.y = "//SYSTSIN  DD  *"
 
-lrecl = 80
+lrecl = 100
 do s = 1 to ser.0
   profile = strip(ser.s)
   lprof = length(profile)

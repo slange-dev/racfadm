@@ -450,7 +450,7 @@ DSN_LOG:                                                      /* @A6 */
   LOGMSG.0 = K
 RETURN
 /*--------------------------------------------------------------------*/
-/*  Proces log records, find ICH408I msgs that meet search criteria   */
+/*  Process log records, find ICH408I msgs that meet search criteria  */
 /*--------------------------------------------------------------------*/
 PROCESS_LOG_RECS:                                             /* @A6 */
   call bpxwunix "grep -A 9 'ICH408'",isfline.,isfline.,stderr. /* @L5 */

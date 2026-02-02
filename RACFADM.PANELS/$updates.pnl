@@ -7,6 +7,23 @@
 * add that library to your SYSHELP allocation.                         *
 *----------------------------------------------------------------------*
 
+  01 Feb 2026 - V40R7
+     - User Profiles (Option 1)
+       -- Updated RACFCOPI exec to generate PERMITs
+     - Dataset Profiles (Option 3)
+       -- Updated RACFDSN2 skeleton to show complete DSN
+     - General resources (Option 4)
+       -- Updated RACFCLSR to add primary command ADD class to table
+       -- Updated RACFCLSR to issue SETR WHEN(PROGRAM) REFRESH
+          when refreshing the PROGRAM class
+       -- Updated tutorial panel #RACCLSR
+     - Certs (Option CA)
+       -- Added RACRINGS exec to list all digital rings
+       -- Updated RACFCERT exec to add RINGS primary command
+       -- Updated RACFCERT exec to add line commands M - LISTMAP
+          and R - Keyring dialog for Personal certificates
+       -- Updated LC edit macro to list CERTAUTH/SITE certificates
+
   08 Jan 2026 - V40R6
      - Certs (Option CA)
        -- Added RACFVUE exec to run VUECERTS (Charles Mills)

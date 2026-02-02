@@ -20,7 +20,7 @@
 /* @AM  200501  RACFA    Commented 'JES early verify', obsolete parm  */
 /* @AL  200501  LBD      Add primary commands FIND/RFIND              */
 /* @AK  200430  RACFA    Chg tbla to TABLEA, moved def. var. up top   */
-/* @AJ  200429  TRIDJK   Chg text on 2 parmeters                      */
+/* @AJ  200429  TRIDJK   Chg text on 2 parameters                     */
 /* @AI  200429  RACFA    Chg 'Datasets' to 'Dataset'                  */
 /* @AH  200428  TRIDJK   Fixed variable names                         */
 /* @AG  200427  RACFA    Standardize SORT, LOCATE, ONLY & RESET cmds  */

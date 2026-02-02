@@ -123,7 +123,7 @@
 /* @CJ  200313  RACFA    Chg subroutine name CHKATTR to UPDATTR       */
 /* @CI  200313  RACFA    After 'C'hanging userid, upd attribute vars  */
 /* @CH  200312  RACFA    Renamed attribute variables                  */
-/* @CG  200311  ZDOHK    Fix Atributes for user change                */
+/* @CG  200311  RACFA    Fix Attributes for user change               */
 /* @CF  200305  TRIDJK   Fix DELETE msgs for ISPPROF and TSOLIB       */
 /* @CE  200304  RACFA    Update ATT field on panel, when updated      */
 /* @CD  200304  RACFA    Del unnecessary double quotes                */
@@ -139,7 +139,7 @@
 /* @C3  200228  RACFA    Place single quotes around comma, prevent err*/
 /* @C2  200228  RACFA    Added PASSWORD() to ADDUSER                  */
 /* @C1  200228  RACFA    Removed ERAMCAT from VGET, not used          */
-/* @BZ  200227  RACFA    Had to add "" for contuation to work properly*/
+/* @BZ  200227  RACFA    Had to add "" for continuation to work OK    */
 /* @BY  200227  RACFA    Fix continuation of statement                */
 /* @BX  200227  TRIDJK   Fix for add and change (NONE/PROTECTED)      */
 /* @BW  200227  RACFA    Added line command 'D', display user datasets*/
@@ -461,8 +461,7 @@ PROFL:
                    end                                        /* @F7 */
                 end                                           /* @F7 */
         END                                                   /* @F7 */
-        WHEN (ABBREV("CLONE",ZCMD,5) = 1 |,                   /* @FH */
-              ABBREV("KLONE",ZCMD,5) = 1) THEN DO   /*UNDOC*/ /* @JK */
+        WHEN (ABBREV("CLONE",ZCMD,5) = 1) THEN DO             /* @FH */
              radmclon = zcmd                                  /* @JK */
              'vput (radmclon) shared'                         /* @JK */
              users_taba = ''                                  /* @FH */

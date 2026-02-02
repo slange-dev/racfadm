@@ -19,6 +19,7 @@
 %  CLASSes          +View supplied RACF General Resource Classes
 %  CDT parm         +Invoke SDSF RACF CDT display (opt parm=active|inactive)
 %  RCLS             +Invoke MXI RACF CDT display
+%  ADD class        +Add class to table
 %  ALL              +Display all classes for z/OS
 +
 +Line Commands

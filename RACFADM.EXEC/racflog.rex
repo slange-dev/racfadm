@@ -20,7 +20,7 @@
 /* @A8  200401  RACFA    Chged edit macro RACFLOGE to RACFEMAC        */
 /* @A7  200303  RACFA    Def/use variable for edit macro              */
 /* @A6  200303  RACFA    Renamed edit macro to RACFDSPE, was RACFCHGE */
-/* @A5  200303  RACFA    Receive member as a parmater                 */
+/* @A5  200303  RACFA    Receive member as a parameter                */
 /* @A4  200303  RACFA    Renamed mbr to RACFDSP, was RACFCHGS         */
 /* @A3  200221  RACFA    Make 'ADDRESS ISPEXEC' defualt, reduce code  */
 /* @A2  200220  RACFA    Added SETMTRAC=YES, then TRACE R             */

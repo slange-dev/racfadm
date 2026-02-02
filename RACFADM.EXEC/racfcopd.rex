@@ -138,7 +138,7 @@ RETURN
 /*--------------------------------------------------------------------*/
 Display_Commands:
   Address TSO "alloc f("ddname") new reuse",
-              "lrecl(80) blksize(0) recfm(f b)",
+              "lrecl(100) blksize(0) recfm(f b)",
               "unit(vio) space(15 15) tracks release"
   Address TSO "execio * diskw "ddname" (stem cmd. finis"
   drop cmd.

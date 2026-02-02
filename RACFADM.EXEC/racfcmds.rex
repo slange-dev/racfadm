@@ -9,7 +9,7 @@
 /* ---  ------  -------  -------------------------------------------- */
 /* @AA  200913  LBD      Display RACF command in flower box at top    */
 /* @A9  200628  RACFA    Added parm GEN to LISTDSD command            */
-/* @A8  200619  RACFA    Initalize the variable NULL                  */
+/* @A8  200619  RACFA    Initialize the variable NULL                 */
 /* @A7  200519  TRIDJK   Allow logging of RACF commands               */
 /* @A6  200430  RACFA    Added skeleton RACF commands to table        */
 /* @A5  200430  RACFA    Place table name in variable at top of REXX  */

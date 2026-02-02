@@ -13,6 +13,7 @@
  |            the.pds.command@gmail.com                       |
  |                                                            |
  | History:  (most recent on top)                             |
+ |            01/22/26 - Process CERTAUTH/SITE certificates   |
  |            12/18/24 - Creation                             |
  |                                                            |
  * ---------------------------------------------------------- */
@@ -20,15 +21,20 @@ Address ISREdit
 "isredit macro"
 
 Address ISREDIT "(ln) = LINE .ZCSR"
-ln = strip(substr(ln,4,32))
+if substr(ln,37,4) = 'OWN=' then
+  id = strip(substr(ln,41,12))
+lab = strip(substr(ln,4,32))
 
-Address ISREDIT "find 'User:' prev"
-Address ISREDIT "(user) = LINE .ZCSR"
-id = strip(substr(user,7,8))
+if substr(ln,37,3) = 'ST=' then do
+  Address ISREDIT "find 'User:' prev"
+  Address ISREDIT "(user) = LINE .ZCSR"
+  id = "id("strip(substr(user,7,8))")"
+  end
 
 x = outtrap('cmd.')
-Address TSO "racdcert list(label('"ln"')) id("id")"
+Address TSO "racdcert list(label('"lab"'))" id
 x = outtrap('off')
+TRACE
 call view_info
 exit
 

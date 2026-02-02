@@ -5,7 +5,7 @@
 /* FLG  YYMMDD  USERID   DESCRIPTION                                  */
 /* ---  ------  -------  -------------------------------------------- */
 /* @A1  251013  Janko    Skip classes per RDEFINE documentation       */
-/* @A0  250707  Janko    IRRXUTIL verson                              */
+/* @A0  250707  Janko    IRRXUTIL version                             */
 /*====================================================================*/
 EDITMACR    = "RACFMRUN"   /* Edit Macro, RACRUN MSG       */
 DDNAME      = 'RACFA'RANDOM(0,999) /* Unique ddname        */

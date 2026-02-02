@@ -201,7 +201,7 @@ return
 /*--------------------------------------------------------------------*/
 Display_Commands:
   Address TSO "alloc f("ddname") new reuse",
-              "lrecl(80) blksize(0) recfm(f b)",
+              "lrecl(300) blksize(0) recfm(f b)",
               "unit(vio) space(1 5) cylinders"
   Address TSO "execio * diskw "ddname" (stem cmd. finis"
   drop cmd.

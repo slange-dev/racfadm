@@ -14,7 +14,7 @@ junk = msg(off)
 " REUSE LRECL(172) RECFM(F B) BLKSIZE(8944)"
 junk = msg(on)
 /*                                    */
-/*  issue tso commnd and trap output  */
+/*  issue tso command and trap output */
 /*                                    */
 junk=outtrap(LINE.)
 TSOCMD

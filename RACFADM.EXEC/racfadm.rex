@@ -25,7 +25,7 @@
 /* @A9  200520  RACFA    Fixed RFIND, LIBDEF and TBCLOSE using $STUB  */
 /* @A8  200519  TRIDJK   Check user cmd table before site cmd table   */
 /* @A7  200519  RACFA    Use SETUP_RFIND1, RFIND2 left entry in table */
-/* @A6  200514  LBD      Add parmeter of NA to bypass allocations     */
+/* @A6  200514  LBD      Add parameter of NA to bypass allocations    */
 /* @A5  200514  LBD      Added different way to setup/define RFIND    */
 /* @A4  200501  RACFA    If 1st time used, get site default settings  */
 /* @A3  200501  LBD      Add dynamic command table                    */
@@ -139,10 +139,10 @@ RETURN                                                        /* @A3 */
 /*  updates the active site command table in memory.             @A5  */
 /*                                                               @A5  */
 /*  This does:                                                   @A5  */
-/*    1) Define the commmand table entry                         @A5  */
+/*    1) Define the command table entry                          @A5  */
 /*    2) vget the variable with the prefix for the site ISPF     @A5  */
 /*       command table.                                          @A5  */
-/*    3) Define a varable with the command table name            @A5  */
+/*    3) Define a variable with the command table name           @A5  */
 /*    4) Move to the top of the command table                    @A5  */
 /*    5) Establish the table search                              @A5  */
 /*    6) If the entry is found then add it                       @A5  */

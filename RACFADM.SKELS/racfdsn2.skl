@@ -12,11 +12,11 @@
 )TB 2 11
 !FILTER:!&RFILTER
 )BLANK
- Profile                                Type
+ Profile                                      Type
  ---------------------------------------------------------------------
-)TB 2 41
+)TB 2 47
 )DOT &TABLEA
-)SETF DATASET = &LEFT(&DATASET,38, )
+)SETF DATASET = &LEFT(&DATASET,44, )
 )SETF TYPE    = &LEFT(&TYPE,30, )
 !&DATASET!&TYPE
 )ENDDOT

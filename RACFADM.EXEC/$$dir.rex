@@ -6,6 +6,7 @@
  --------  -------------  --------------------------------------------
  $$DIR     Directory      Document members
  $CALLS    Documentation  Calls to other RACFADM rexx programs
+ $RACHELP  Documentation  RACF Help member descriptions
  $STUB     Invocation     Can place rexx in site's REXX dataset
  LC        Edit Macro     RACDCERT LIST(LABEL('labelname')) ID(userid)
                           on User Profile CERTS/RINGS command output
@@ -20,7 +21,7 @@
  RACFALTG  Group          Alter selected group segments
  RACFALTR  Class          Alter selected resource segments
  RACFALTU  User           Alter selected user segments
- RACFCERT  CertSite       Display Digital Certificates, menu opt CS
+ RACFCERT  Certs          Display Digital Certificates, menu opt CS
  RACFCHKP  User           Check the days until the password changes
  RACFCLOG  Documentation  Determine LOG type (rc=0 SYSLOG, rc=1 OPERLOG)
  RACFCLSA  Authorization  Display authorization on profile, menu opt 9
@@ -75,7 +76,8 @@
  RACFUSRT  User           Add, delete and change TSO userid
  RACFUSRX  User           Userid cross reference report (line cmd X)
  RACFUSRY  User           Userid dsn/rsrc access report (line cmd Y)
- RACFVUE   CertSite       Display *ALL* Digital Certificates (primary cmd VUE)
+ RACFVUE   Certs          Display *ALL* Digital Certificates (primary cmd VUE)
+ RACRINGS  Certs          Display Digital Rings
  RACRUN    Edit Macro     Run RACF commands in Edit buffer
  VUECERTL  Edit Macro     Run RACDCERT LIST commands on VUECERTS output
 
