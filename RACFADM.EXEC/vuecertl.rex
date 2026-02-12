@@ -304,9 +304,9 @@ ParseCertLine:
   /* Bad lines have no 'label' or junk as the first "word" */
   Item_User = Strip(Item_User)
   If Item_Label = "" | Length(Item_User) > 8 Then Do
-    Call DispMag Msg_Warn, "Not a certifcate", ,
+    Call DispMag Msg_Warn, "Not a certificate", ,
       "Cursor appears to be on a line that does not identify" ,
-      "a certifcate or keyring. Line contents: '"Strip(USRLINE)"'"
+      "a certificate or keyring. Line contents: '"Strip(USRLINE)"'"
 
     ReturnCode = 8
     Signal Sig_EndPgm

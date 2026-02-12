@@ -1,11 +1,12 @@
 *----------------------------------------------------------------------*
 *                          RACFADM - Updates                           *
 *----------------------------------------------------------------------*
-* Warning: As of z/OS 2.5 all RACF TSO Help members have been removed  *
-* from the distribution. If you want to keep them around you need to   *
-* copy them from a prior release SYS1.HELP into a new library and then *
-* add that library to your SYSHELP allocation.                         *
-*----------------------------------------------------------------------*
+
+  11 Feb 2026 - V40R8
+     - Certs (Option CA)
+       -- Updated VUECERTP program to handle large numbers of
+          rings/certs and provide better error handling (Charles Mills)
+       -- Updated LC edit macro to process VUECERTS INDEX certificates
 
   01 Feb 2026 - V40R7
      - User Profiles (Option 1)

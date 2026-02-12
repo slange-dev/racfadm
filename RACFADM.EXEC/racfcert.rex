@@ -99,11 +99,18 @@ SELECT_LABEL:
   "TBCREATE" TABLEA "KEYS(LABEL)",
                   "NAMES(STDATE ENDATE STATUS COND)" ,        /* @A2 */
                   "REPLACE NOWRITE"                           /* @A2 */
-
-  if type = 'PERSONAL' then                                   /* @AA */
-    call get_pers_cert_labels                                 /* @AA */
-  else                                                        /* @JK */
-    call get_cert_labels                                      /* @JK */
+  SELECT                                                      /* @AA */
+    when type = 'PERSONAL' then                               /* @AA */
+      call get_vue_cert_labels                                /* @AA */
+    when type = 'CERTAUTH' then                               /* @AA */
+      call get_vue_cert_labels                                /* @AA */
+    when type = 'SITE' then                                   /* @AA */
+      call get_vue_cert_labels                                /* @AA */
+    when type = user then                                     /* @AA */
+      call get_cert_labels                                    /* @AA */
+    otherwise                                                 /* @AA */
+      nop                                                     /* @AA */
+  END                                                         /* @AA */
 
   sort     = 'LABEL,C,A'
   CLRLABE  = "TURQ" ; CLRSTDA = "GREEN"
@@ -781,6 +788,11 @@ LISTM:
         call RACFRING cond
         return
         end
+   if (opta = "R" & left(certtype,3) = 'id(') then do
+        parse var certtype 'id(' lc_user ')'
+        call RACFRING lc_user
+        return
+        end
 
    if certtype = "PERSONAL" then
      cmd = "racdcert "action" id("cond")"
@@ -796,6 +808,7 @@ LISTM:
    X = OUTTRAP("OFF")
    if (SETMSHOW <> 'NO') then
       call SHOWCMD
+
    DO J = 1 TO CMDREC.0
       CMDREC.J = SUBSTR(CMDREC.J,1,80)
    END
@@ -847,11 +860,11 @@ RETURN                                                        /* @AA */
 /*--------------------------------------------------------------------*/
 /*  Display digital certificate personal labels                       */
 /*--------------------------------------------------------------------*/
-GET_PERS_CERT_LABELS:                                         /* @AA */
+GET_VUE_CERT_LABELS:                                          /* @AA */
 Address TSO                                                   /* @AA */
-"ALLOC F(INDEX) UNIT(VIO) NEW REUSE SPACE(1,1) TRACKS",       /* @AA */
+"ALLOC F(INDEX) UNIT(VIO) NEW REUSE SPACE(1,5) TRACKS",       /* @AA */
   "LRECL(256) RECFM(F B)"                                     /* @AA */
-"ALLOC F(SYSPRINT) UNIT(VIO) NEW REUSE SPACE(15,15) TRACKS",  /* @AA */
+"ALLOC F(SYSPRINT) UNIT(VIO) NEW REUSE SPACE(15,150) TRACKS", /* @AA */
   "LRECL(200) RECFM(F B)"                                     /* @AA */
                                                               /* @AA */
 Address ISPEXEC                                               /* @AA */
@@ -873,15 +886,37 @@ Address TSO                                                   /* @AA */
                                                               /* @AA */
 do x = 1 to index.0                                           /* @AA */
   parse var index.x . id stdate endate status . . label       /* @AA */
-  if left(id,2) <> 'ID' then                                  /* @AA */
-    iterate                                                   /* @AA */
   label = strip(label)                                        /* @AA */
   label = strip(label,,"'")                                   /* @AA */
   status = left(status,7)                                     /* @AA */
-  parse var id "(" id ")"                                     /* @AA */
-  cond = id                                                   /* @AA */
-  Address ISPExec                                             /* @AA */
-  "TBMOD" TABLEA                                              /* @AA */
+
+  if certtype = "PERSONAL" &,
+     left(id,3) = "ID(" then do
+    parse var id "(" id ")"                                   /* @AA */
+    cond = id                                                 /* @AA */
+    Address ISPExec                                           /* @AA */
+    "TBMOD" TABLEA                                            /* @AA */
+    end
+  if certtype = "CERTAUTH" &,
+     id = "CERTAUTH" then do
+    parse value endate with ey'/'em'/'ed
+    tendate = ey''em''ed
+    if tendate < date('s')
+       then cond = '*Expired*'
+       else cond = null
+    Address ISPExec                                           /* @AA */
+    "TBMOD" TABLEA                                            /* @AA */
+    end
+  if certtype = "SITE" &,
+     id = "SITE" then do
+    parse value endate with ey'/'em'/'ed
+    tendate = ey''em''ed
+    if tendate < date('s')
+       then cond = '*Expired*'
+       else cond = null
+    Address ISPExec                                           /* @AA */
+    "TBMOD" TABLEA                                            /* @AA */
+    end
   end                                                         /* @AA */
 drop index.                                                   /* @AA */
 RETURN                                                        /* @AA */

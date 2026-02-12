@@ -66,10 +66,12 @@ if class = '_SETROPTS' then do                                /* @B1 */
   sect = setrsect                                             /* @B1 */
   end                                                         /* @B1 */
 Select                                                        /* @AR */
+   /*
    When (profile = "*") then do                               /* @AF */
       call RACFMSGS ERR17                                     /* @AF */
       return                                                  /* @AF */
    end                                                        /* @AF */
+   */
    When (profile = "NO") then do                              /* @AR */
       call RACFMSGS ERR21                                     /* @AR */
       return                                                  /* @AR */

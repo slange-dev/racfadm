@@ -671,6 +671,11 @@ Add_Class:                                                    /* @JK */
   if length(c.class) > 10 then do                             /* @JK */
     cdesc = c.class                                           /* @JK */
     "TBMOD" TABLEA "ORDER"                                    /* @JK */
+    if rc < 12 then do
+      racfsmsg = class 'added'                                /* @JK */
+      racflmsg = 'The class 'class' was added to the table'   /* @JK */
+      'setmsg msg(RACF011)'                                   /* @JK */
+      end
     end                                                       /* @JK */
 RETURN                                                        /* @JK */
 /*--------------------------------------------------------------------*/

@@ -82,7 +82,7 @@ ADDRESS ISPEXEC                                               /* @A4 */
      end
      when (code = 'ERR09') then do
           racfsmsg = 'Error in search'
-          racflmsg = 'Encountered an error in seaching'
+          racflmsg = 'Encountered an error in searching'
      end
      when (code = 'ERR10') then do
           racfsmsg = 'Command failed'
@@ -114,7 +114,7 @@ ADDRESS ISPEXEC                                               /* @A4 */
      end
      WHEN (code = 'ERR17') then do
           racfsmsg = 'Invalid - Wild card'
-          racflmsg = 'The astrisk (*) is a wild card,',
+          racflmsg = 'The asterisk (*) is a wild card,',
                      'signifies default access'
      end
      WHEN (code = 'ERR18') then do

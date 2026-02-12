@@ -11,7 +11,6 @@
 +  option used for!VUECERTS+
 +
 !  CMDS +to generate RACDCERT LIST commands for diagnosing certificate issues
-!  VERB +to display IRRSEQ00 call parameters and profiles
 !  INDEX+to generate a list of all Digital Certificates
 !  USERS+to generate a list of userids with personal certificates (with count)
 !  RINGS+to display Keyrings and their Certificates

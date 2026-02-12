@@ -46,7 +46,8 @@
  RACFEMST  Edit Macro     View/edit, position to SETROPTS section
  RACFENQS  Enqueues       Display enqueues on ALTLIB/LIBDEF dsns, opt E
  RACFGEN   Generate       Generate profile source, option G
- RACFGENA  Generate       Generate profile source all active Resource, option GA
+ RACFGENA  Generate       Generate profile source all active Resource, opt G/ALL
+ RACFGENR  Generate       Generate profile source all Resource (TSO RACFGENR)
  RACFGRP   Group          Display group profiles, menu option 2
  RACFGTRE  Group Tree     Execute/display DSMON group tree rpt, opt 6
  RACFHELP  Help           Display TSO HELP on RACF commands

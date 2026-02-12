@@ -2,17 +2,18 @@
  | Name:      LC                                              |
  |                                                            |
  | Function:  The LC edit macro is used to issue a            |
- |            RACDCERT LIST(LABEL('labelname')) ID(userid)    |
- |            for the label at the cursor position.           |
+ |            RACDCERT LIST(LABEL('labelname')) ID(userid)|   |
+ |            CERTAUTH|SITE for the label line at the         |
+ |            cursor position.                                |
  |                                                            |
- |                                                            |
- | Use:       LC  cursor-->label name                         |
+ | Use:       LC  cursor-->label line                         |
  |                                                            |
  | Author:    Janko Kalinic                                   |
  |            The ISPF Cabal - Vive la revolution             |
  |            the.pds.command@gmail.com                       |
  |                                                            |
  | History:  (most recent on top)                             |
+ |            02/09/26 - Process VUECERTS INDEX input         |
  |            01/22/26 - Process CERTAUTH/SITE certificates   |
  |            12/18/24 - Creation                             |
  |                                                            |
@@ -21,14 +22,20 @@ Address ISREdit
 "isredit macro"
 
 Address ISREDIT "(ln) = LINE .ZCSR"
-if substr(ln,37,4) = 'OWN=' then
-  id = strip(substr(ln,41,12))
-lab = strip(substr(ln,4,32))
-
-if substr(ln,37,3) = 'ST=' then do
-  Address ISREDIT "find 'User:' prev"
-  Address ISREDIT "(user) = LINE .ZCSR"
-  id = "id("strip(substr(user,7,8))")"
+if left(ln,3) = '01 ' then do           /* VUECERTS INDEX format */
+  parse var ln . id stdate endate status . . lab
+  lab = strip(lab)
+  lab = strip(lab,,"'")
+  end
+else do
+  if substr(ln,37,4) = 'OWN=' then      /* RACFADM RINGS format */
+    id  = strip(substr(ln,41,12))
+  lab = strip(substr(ln,4,32))
+  if substr(ln,37,3) = 'ST=' then do    /* RACFADM CERTS format */
+    Address ISREDIT "find 'User:' prev"
+    Address ISREDIT "(user) = LINE .ZCSR"
+    id = "id("strip(substr(user,7,8))")"
+    end
   end
 
 x = outtrap('cmd.')

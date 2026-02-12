@@ -23,11 +23,12 @@
 %  Reset            +Redisplay all rows and sort first column
 %  SITE/CA/PERS     +Switch certificate list to SITE/CERTAUTH/PERS
 %  VUEcerts parm    +Display certificates (CERTAUTH/SITE/PERSONAL)
-%                     !CMDS+ - generate RACDCERT LIST commands
-%                     !VERB+ - display IRRSEQ00 call parameters and profiles
-%                     !INDEX+- index of all certificates
-%                     !USERS+- userids with personal certificates (with count)
 %                     !blank+- display all certificates with an analysis
+%                     !CMDS+ - generate RACDCERT LIST commands
+%                     !INDEX+- index of all certificates
+%                     !RINGS+- keyrings and their Certificates
+%                     !USERS+- userids with personal certificates (with count)
+%                     !VERB+ - IRRSEQ00 call parameters (use only as directed)
 %  SAve             +Save display to a dataset
 %  CHECK            +Check certificate or certificate chain
 %  RINGS            +Display Keyrings and their Certificates

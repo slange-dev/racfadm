@@ -8,14 +8,14 @@
 /* @L1  251114  LBD      Use Select PGM instead of LINKMVS            */
 /* @A0  251108  TRIDJK   Creation                                     */
 /*====================================================================*/
-TRACE
 DDNAME      = 'RACFA'RANDOM(0,999) /* Unique ddname          */
 parse source . . REXXPGM .         /* Obtain REXX pgm name   */
 REXXPGM     = LEFT(REXXPGM,8)
 
 Parse upper arg parm
+exec_parm = ''
 If parm = 'VERB' then
-  parm = '{"VERBOSE":TRUE}'
+  exec_parm = '{"VERBOSE":true}'
 Address ISPexec
 
 if parm = '' then do                                        /* @L2 */
@@ -25,6 +25,8 @@ if parm = '' then do                                        /* @L2 */
    'REMPOP'                                                 /* @L2 */
    if disprc > 0 then return 4                              /* @L2 */
    parm = vopt                                              /* @L2 */
+   if vopt = 'VERB' then
+     exec_parm = '{"VERBOSE":true}'
    end                                                      /* @L2 */
 
 "CONTROL ERRORS RETURN"
@@ -40,23 +42,23 @@ If (SETMTRAC <> 'NO') then do
    end
 
 Address TSO
-"ALLOC F(SYSPRINT) UNIT(VIO) NEW REUSE SPACE(15,15) TRACKS",
+"ALLOC F(SYSPRINT) UNIT(VIO) NEW REUSE SPACE(15,150) TRACKS",
   "LRECL(200) RECFM(F B)"
 Select
   When parm = 'CMDS' then
-    "ALLOC F(COMMANDS) UNIT(VIO) NEW REUSE SPACE(1,1) TRACKS",
+    "ALLOC F(COMMANDS) UNIT(VIO) NEW REUSE SPACE(1,5) TRACKS",
       "LRECL(80) RECFM(F B)"
   When parm = 'USERS' then
-    "ALLOC F(USERIDS) UNIT(VIO) NEW REUSE SPACE(1,1) TRACKS",
+    "ALLOC F(USERIDS) UNIT(VIO) NEW REUSE SPACE(1,5) TRACKS",
       "LRECL(80) RECFM(F B)"
   When parm = 'INDEX' then
-    "ALLOC F(INDEX) UNIT(VIO) NEW REUSE SPACE(1,1) TRACKS",
+    "ALLOC F(INDEX) UNIT(VIO) NEW REUSE SPACE(1,5) TRACKS",
       "LRECL(256) RECFM(F B)"
   Otherwise NOP
 End
 
 Address ISPEXEC
-'Select pgm(vuecertp) parm('parm')'                          /* @L1 */
+'Select pgm(vuecertp) parm('exec_parm')'                     /* @L1 */
 if rc = 20 then do
   RACFSMSG = "VUE not found"
   RACFLMSG = "VUECERTP program not found"
@@ -82,7 +84,7 @@ Select
 End
 If rc ^= 0 Then
   Do
-    Say LMINIT failed
+    Say 'LMINIT failed, rc='rc
     Exit 12
   End
 

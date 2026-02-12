@@ -21,6 +21,7 @@
    |   AUDITOR | NOAUDITOR                                        |
    |   AUTHORITY(group-authority)                                 |
    |   CLAUTH(class-name ...) | NOCLAUTH                          |
+   |   CONTAIN | NOCONTAIN | NEVERCONTAIN | ALLOWCONTAIN          |
    |   DATA('installation-defined-data')                          |
    |   DFLTGRP(group-name)                                        |
    |   GRPACC | NOGRPACC                                          |

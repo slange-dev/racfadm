@@ -113,6 +113,7 @@ NULL        = ''                                              /* @BV */
 parse source . . REXXPGM .         /* Obtain REXX pgm name */ /* @BO */
 REXXPGM     = LEFT(REXXPGM,8)                                 /* @BO */
 FAS = 'No'                                                    /* @MW */
+Catch_All = 'YES'                  /* IRRXUTIL for "*"     */ /* @JK */
 
 ADDRESS ISPEXEC                                               /* @AG */
   Arg Rclass Rfilter Rdisp
@@ -620,6 +621,12 @@ RETURN
 /*  Get member list                                                   */
 /*--------------------------------------------------------------------*/
 GETM:
+ if (profile = "*") then do                                   /* @JK */
+    if Catch_All = "YES" then do                              /* @JK */
+       call Catch_Addmems                                     /* @JK */
+       return                                                 /* @JK */
+       end                                                    /* @JK */
+    end                                                       /* @JK */
   cmd = "RLIST "RCLASS PROFILE" AUTH"                         /* @AF */
   x = OUTTRAP('var.')
   address TSO cmd                                             /* @AF */
@@ -871,6 +878,12 @@ CREATE_TABLEB:                                                /* @B9 */
      call SHOWCMD                                             /* @AF */
   if (type = ' ') then
      type = 'DISCRETE'
+  if (profile = "*") then do                                  /* @JK */
+     if Catch_All = "YES" then do                             /* @JK */
+        call Catch_Ids                                        /* @JK */
+        var.0 = 0                                             /* @JK */
+        end                                                   /* @JK */
+     end                                                      /* @JK */
   Do i = 1 to var.0                /* Scan output */
      temp = var.i
      if (rlv > '1081') then  /* RACF 1.9 add blank */
@@ -901,10 +914,10 @@ CREATE_TABLEB:                                                /* @B9 */
         end
      if (flags = 'ON') then do
         if (l = 1) | (l = 2) then
-           flags = 'OUT'     /* end of access list */
+           flags = 'OFF'     /* end of access list */         /* @JK+*/
         if (l > 8) then
            if (substr(temp,1,9) = ' ') then
-              flags = 'OUT'  /* end of access list */
+              flags = 'OFF'  /* end of access list */         /* @JK+*/
      end
      if (flags = 'ON') then do
         if (substr(temp,2,10) = 'NO ENTRIES') then do
@@ -928,6 +941,66 @@ CREATE_TABLEB:                                                /* @B9 */
   "TBSORT " TABLEB "FIELDS("sort")"                           /* @BW */
   "TBTOP  " TABLEB                                            /* @BW */
 RETURN                                                        /* @B9 */
+/*--------------------------------------------------------------------*/
+/*  Display Group/ID & Access for * profile                           */
+/*--------------------------------------------------------------------*/
+Catch_Ids:
+  drop uacc owner warn audit data
+  Address TSO
+  rxrc=IRRXUTIL("EXTRACT",rclass,profile,"RACF","")
+  if (word(rxrc,1) <> 0) then
+     say "Extract for profile "profile" failed"
+
+  uacc  = racf.base.uacc.1
+  owner = racf.base.owner.1
+  warn  = racf.base.warning.1
+  audit = racf.base.raudit.1
+  data  = racf.base.data.1
+
+  if racf.base.aclcnt.repeatcount <> '' then do
+    do a=1 to racf.base.aclcnt.repeatcount
+       id  = racf.base.aclid.a
+       acc = racf.base.aclacs.a
+       Address ISPExec
+       "tbmod" tableb
+      end
+    end
+  else do
+       id  = "NO"
+       acc = "USERS"
+       Address ISPExec
+       "tbmod" tableb
+    end
+RETURN
+/*--------------------------------------------------------------------*/
+/*  Display ADDMEM for * profile                                      */
+/*--------------------------------------------------------------------*/
+Catch_Addmems:
+  drop uacc owner warn audit data
+  Address TSO
+  rxrc=IRRXUTIL("EXTRACT",rclass,profile,"RACF","")
+  if (word(rxrc,1) <> 0) then
+     say "Extract for profile "profile" failed"
+
+  uacc  = racf.base.uacc.1
+  owner = racf.base.owner.1
+  warn  = racf.base.warning.1
+  audit = racf.base.raudit.1
+  data  = racf.base.data.1
+
+  if racf.base.memcnt.repeatcount <> '' then do
+    do a=1 to racf.base.memcnt.repeatcount
+       id  = racf.base.member.a
+       Address ISPExec
+       "tbmod" tableb
+      end
+    end
+  else do
+       id  = "NONE"
+       Address ISPExec
+       "tbmod" tableb
+    end
+RETURN
 /*--------------------------------------------------------------------*/
 /*  Get RLIST info                                                    */
 /*--------------------------------------------------------------------*/
